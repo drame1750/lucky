@@ -1,0 +1,243 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+.wrap { padding: 1rem 0; font-family: var(--font-sans); }
+.header { display: flex; align-items: center; gap: 12px; margin-bottom: 1.25rem; }
+.avatar { width: 42px; height: 42px; border-radius: 50%; background: var(--color-background-info); display: flex; align-items: center; justify-content: center; font-size: 20px; }
+.title { font-size: 17px; font-weight: 500; color: var(--color-text-primary); }
+.sub { font-size: 12px; color: var(--color-text-secondary); }
+.pill { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; padding: 3px 10px; border-radius: 20px; background: var(--color-background-success); color: var(--color-text-success); margin-left: auto; }
+.dot { width: 6px; height: 6px; border-radius: 50%; background: var(--color-text-success); animation: blink 1.4s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px; margin-bottom: 1.25rem; }
+.sc { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 0.65rem 0.9rem; }
+.sl { font-size: 11px; color: var(--color-text-secondary); margin-bottom: 3px; }
+.sv { font-size: 20px; font-weight: 500; color: var(--color-text-primary); }
+.sv.g { color: var(--color-text-success); }
+.sv.a { color: var(--color-text-warning); }
+.section { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; margin-bottom: 1rem; }
+.stitle { font-size: 13px; font-weight: 500; color: var(--color-text-secondary); margin-bottom: 0.85rem; display: flex; align-items: center; gap: 7px; }
+.prow { display: flex; align-items: center; padding: 8px 0; border-bottom: 0.5px solid var(--color-border-tertiary); gap: 12px; }
+.prow:last-child { border-bottom: none; padding-bottom: 0; }
+.prow.now { background: var(--color-background-success); margin: 4px -1.25rem; padding: 8px 1.25rem; border-radius: var(--border-radius-md); border-bottom: none; }
+.pnum { width: 26px; height: 26px; border-radius: 50%; background: var(--color-background-secondary); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; color: var(--color-text-secondary); flex-shrink: 0; }
+.pnum.top { background: var(--color-background-success); color: var(--color-text-success); }
+.pnum.hot { background: var(--color-background-warning); color: var(--color-text-warning); }
+.pinfo { flex: 1; min-width: 0; }
+.ptime { font-size: 22px; font-weight: 500; color: var(--color-text-primary); letter-spacing: 0.5px; font-family: var(--font-mono); }
+.ptime.live { color: var(--color-text-success); }
+.pmeta { font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; }
+.pright { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.bbar { height: 5px; width: 64px; background: var(--color-background-secondary); border-radius: 3px; }
+.bfill { height: 5px; border-radius: 3px; }
+.bpct { font-size: 10px; color: var(--color-text-tertiary); text-align: right; margin-top: 2px; }
+.badge { font-size: 11px; padding: 2px 8px; border-radius: 12px; font-weight: 500; }
+.bh { background: var(--color-background-success); color: var(--color-text-success); }
+.bm { background: var(--color-background-warning); color: var(--color-text-warning); }
+.bl { background: var(--color-background-danger); color: var(--color-text-danger); }
+.live-tag { font-size: 10px; padding: 2px 7px; border-radius: 10px; background: var(--color-background-success); color: var(--color-text-success); font-weight: 500; animation: blink 1.4s infinite; }
+.hist-row { display: flex; gap: 5px; flex-wrap: wrap; }
+.hc { font-size: 11px; padding: 2px 7px; border-radius: 4px; }
+.ctrls { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 1rem; }
+.ctrls label { font-size: 13px; color: var(--color-text-secondary); }
+.rbtn { background: transparent; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); padding: 7px 14px; font-size: 13px; cursor: pointer; color: var(--color-text-primary); display: flex; align-items: center; gap: 5px; }
+.rbtn:hover { background: var(--color-background-secondary); }
+.rbtn:active { transform: scale(0.98); }
+.chat { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 0.75rem; max-height: 130px; overflow-y: auto; margin-bottom: 1rem; }
+.cmsg { font-size: 12px; line-height: 1.6; padding: 2px 0; color: var(--color-text-primary); }
+.ts { color: var(--color-text-tertiary); font-size: 10px; margin-right: 5px; }
+.disc { font-size: 11px; color: var(--color-text-tertiary); padding: 0.65rem 0.85rem; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); line-height: 1.5; }
+.cd { font-size: 11px; color: var(--color-text-secondary); margin-left: auto; display: flex; align-items: center; gap: 4px; }
+.cd strong { color: var(--color-text-warning); font-weight: 500; }
+</style>
+
+<h2 class="sr-only">Lucky Jet – prédictions à la minute exacte pour X1.5</h2>
+<div class="wrap">
+  <div class="header">
+    <div class="avatar">🚀</div>
+    <div>
+      <div class="title">Lucky Jet Analyzer</div>
+      <div class="sub">Prédictions à la minute exacte · <span id="clk"></span></div>
+    </div>
+    <div class="pill"><div class="dot"></div>Actif</div>
+  </div>
+
+  <div class="stats">
+    <div class="sc"><div class="sl">Prob. par round</div><div class="sv g" id="s-prob">63%</div></div>
+    <div class="sc"><div class="sl">Prochain signal</div><div class="sv a" id="s-next">—</div></div>
+    <div class="sc"><div class="sl">Signaux forts</div><div class="sv" id="s-hot">0</div></div>
+    <div class="sc"><div class="sl">Objectif</div><div class="sv" id="s-obj">X1.5</div></div>
+  </div>
+
+  <div class="section">
+    <div class="stitle">
+      <i class="ti ti-clock-pin" aria-hidden="true"></i>Minutes exactes de signal
+      <div class="cd" id="cd-el"></div>
+    </div>
+    <div id="pred-list"></div>
+  </div>
+
+  <div class="section">
+    <div class="stitle"><i class="ti ti-history" aria-hidden="true"></i>Simulation rounds récents</div>
+    <div class="hist-row" id="hist"></div>
+    <div style="margin-top:8px;display:flex;gap:14px;font-size:11px;color:var(--color-text-secondary);">
+      <span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--color-background-success);vertical-align:middle;margin-right:3px;"></span>Objectif atteint</span>
+      <span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--color-background-danger);vertical-align:middle;margin-right:3px;"></span>En dessous</span>
+    </div>
+  </div>
+
+  <div class="ctrls">
+    <label>Objectif :</label>
+    <select id="tgt" style="padding:6px 10px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-primary);font-size:13px;">
+      <option value="1.5">X1.5</option>
+      <option value="2.0">X2.0</option>
+      <option value="3.0">X3.0</option>
+      <option value="5.0">X5.0</option>
+    </select>
+    <label>Signaux :</label>
+    <select id="cnt" style="padding:6px 10px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-primary);font-size:13px;">
+      <option value="8">8</option>
+      <option value="12" selected>12</option>
+      <option value="16">16</option>
+    </select>
+    <button class="rbtn" onclick="generate()"><i class="ti ti-refresh" aria-hidden="true"></i>Rafraîchir ↗</button>
+  </div>
+
+  <div class="chat" id="chat"></div>
+  <div class="disc">⚠️ Outil probabiliste uniquement. Lucky Jet utilise un RNG certifié — chaque round est indépendant. Ces minutes sont des estimations statistiques, non des garanties. Jouez de façon responsable.</div>
+</div>
+
+<script>
+let target = 1.5;
+let cdSecs = 90;
+let cdInt = null;
+
+function p2(n) { return String(n).padStart(2, '0'); }
+function nowStr() { const d = new Date(); return p2(d.getHours())+':'+p2(d.getMinutes())+':'+p2(d.getSeconds()); }
+function updateClock() { const d = new Date(); document.getElementById('clk').textContent = p2(d.getHours())+'h'+p2(d.getMinutes()); }
+function getProb(t) { return parseFloat((0.99/t*100).toFixed(1)); }
+function crashMult() { return Math.max(1.0, parseFloat((0.99/(1-Math.random())).toFixed(2))); }
+
+function genSignals(count) {
+  const now = new Date();
+  const signals = [];
+  let cursor = new Date(now);
+  cursor.setSeconds(0,0);
+  cursor.setMinutes(cursor.getMinutes() + 1 + Math.floor(Math.random()*4));
+
+  for (let i = 0; i < count; i++) {
+    const t = new Date(cursor);
+    const noise = (Math.random()-0.3)*20;
+    const conf = Math.min(97, Math.max(30, Math.round(getProb(target) + noise)));
+    const estMult = parseFloat((target + Math.random()*target*1.4).toFixed(2));
+    signals.push({ t, conf, estMult });
+    const gap = 3 + Math.floor(Math.random()*20);
+    cursor = new Date(cursor.getTime() + gap*60000);
+  }
+  return signals;
+}
+
+function confInfo(c) {
+  if (c >= 68) return { cls:'bh', label:'Fort', color:'#22c55e' };
+  if (c >= 50) return { cls:'bm', label:'Modéré', color:'#f59e0b' };
+  return { cls:'bl', label:'Faible', color:'#ef4444' };
+}
+
+function isNow(t) {
+  const now = new Date();
+  return t.getHours()===now.getHours() && t.getMinutes()===now.getMinutes();
+}
+
+function generate() {
+  target = parseFloat(document.getElementById('tgt').value);
+  const count = parseInt(document.getElementById('cnt').value);
+  const prob = getProb(target);
+  document.getElementById('s-prob').textContent = prob+'%';
+  document.getElementById('s-obj').textContent = 'X'+target.toFixed(1);
+
+  const sigs = genSignals(count);
+  const hot = sigs.filter(s=>s.conf>=68).length;
+  document.getElementById('s-hot').textContent = hot;
+
+  const now = new Date();
+  const diff = Math.round((sigs[0].t - now)/60000);
+  document.getElementById('s-next').textContent = diff<=0 ? 'Maintenant' : diff+'min';
+
+  const list = document.getElementById('pred-list');
+  list.innerHTML = '';
+
+  sigs.forEach((s, i) => {
+    const ci = confInfo(s.conf);
+    const live = isNow(s.t);
+    const timeLabel = p2(s.t.getHours())+'h'+p2(s.t.getMinutes());
+
+    const row = document.createElement('div');
+    row.className = 'prow' + (live ? ' now' : '');
+    row.innerHTML = `
+      <div class="pnum ${s.conf>=68?'top':s.conf>=50?'hot':''}">${i+1}</div>
+      <div class="pinfo">
+        <div class="ptime${live?' live':''}">${timeLabel} ${live?'<span class="live-tag">EN COURS</span>':''}</div>
+        <div class="pmeta">mult. estimé X${s.estMult.toFixed(2)} · confiance ${s.conf}%</div>
+      </div>
+      <div class="pright">
+        <div>
+          <div class="bbar"><div class="bfill" style="width:${s.conf}%;background:${ci.color};"></div></div>
+          <div class="bpct">${s.conf}%</div>
+        </div>
+        <span class="badge ${ci.cls}">${ci.label}</span>
+      </div>
+    `;
+    list.appendChild(row);
+  });
+
+  genHistory();
+  startCd();
+  addLog(`✅ ${count} signaux générés · objectif X${target.toFixed(1)} · ${hot} signaux forts · prochain : ${p2(sigs[0].t.getHours())}h${p2(sigs[0].t.getMinutes())}`);
+}
+
+function genHistory() {
+  const h = document.getElementById('hist');
+  h.innerHTML = '';
+  for (let i=0;i<36;i++){
+    const m = crashMult();
+    const ok = m>=target;
+    const c = document.createElement('div');
+    c.className='hc';
+    c.style.background = ok?'var(--color-background-success)':'var(--color-background-danger)';
+    c.style.color = ok?'var(--color-text-success)':'var(--color-text-danger)';
+    c.title='X'+m.toFixed(2);
+    c.textContent='X'+m.toFixed(1);
+    h.appendChild(c);
+  }
+}
+
+const chatEl = document.getElementById('chat');
+function addLog(txt) {
+  const d = document.createElement('div');
+  d.className='cmsg';
+  d.innerHTML=`<span class="ts">${nowStr()}</span>${txt}`;
+  chatEl.appendChild(d);
+  chatEl.scrollTop=chatEl.scrollHeight;
+}
+
+function startCd() {
+  if(cdInt) clearInterval(cdInt);
+  cdSecs=90;
+  const el=document.getElementById('cd-el');
+  cdInt=setInterval(()=>{
+    cdSecs--;
+    if(cdSecs<=0){ generate(); }
+    else {
+      const m=Math.floor(cdSecs/60), s=cdSecs%60;
+      el.innerHTML=`<i class="ti ti-refresh" style="font-size:11px;" aria-hidden="true"></i>actu. dans <strong>${m}:${p2(s)}</strong>`;
+    }
+  },1000);
+}
+
+document.getElementById('tgt').addEventListener('change', generate);
+document.getElementById('cnt').addEventListener('change', generate);
+setInterval(updateClock,1000);
+updateClock();
+addLog('🤖 Bot initialisé. Génération des minutes exactes...');
+setTimeout(generate, 250);
+</script>
